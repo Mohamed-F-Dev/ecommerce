@@ -1,4 +1,4 @@
-// لسه مخلصتش ال responsive
+// لسه مخلصتش ال responsive.
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
