@@ -1,24 +1,27 @@
 // لسه مخلصتش ال responsive.
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertest/config/theme/theme_controler.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   @override
   State<LoginScreen> createState() => _MyAppState();
 }
+
 class _MyAppState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var mediaQueryData = MediaQuery.of(context);
-    double screenWidth =MediaQuery.of(context).size.width;
-    double screenHeight =MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         width: screenWidth,
         height: screenHeight,
         padding: EdgeInsets.all(screenHeight * 0.05),
         child: LayoutBuilder(
-          builder: (context,constrains) {
+          builder: (context, constrains) {
             var deviceType = getDeviceType(mediaQueryData);
             double localWidth = constrains.maxWidth;
             double localHeight = constrains.maxHeight;
@@ -36,22 +39,7 @@ class _MyAppState extends State<LoginScreen> {
             }
             return Column(
               children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: EdgeInsets.symmetric(
-                    vertical: 35,
-                  ),
-                  child: Text(
-                    """Log into
-your account""",
-                    style: TextStyle(
-                      color: Color(0xff000000),
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      height: 2,
-                    ),
-                  ),
-                ),
+                _buildIntro(),
                 Form(
                   child: Column(
                     children: [
@@ -71,9 +59,7 @@ your account""",
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 35,
-                      ),
+                      SizedBox(height: 35),
                       TextFormField(
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
@@ -96,70 +82,47 @@ your account""",
                 ),
                 Container(
                   alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.symmetric(
-                    vertical: 20,
-                  ),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: TextButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: Text(
                       "Forgot Password?",
-                      style: TextStyle(
-                        color: Color(0xff000000),
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Color(0xff000000), fontSize: 14),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 17,
-                ),
+                SizedBox(height: 17),
                 MaterialButton(
-                  onPressed: (){},
+                  onPressed: () {
+                    context.read<ThemeCubit>().changeTheme(isdark: true);
+                  },
                   minWidth: 147,
                   height: 51,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 41,
-                    vertical: 10,
+                  padding: EdgeInsets.symmetric(horizontal: 41, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(26.5),
                   ),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.5),),
                   color: Color(0xff2D201C),
                   textColor: Color(0xffFFFFFF),
-                  child: Text(
-                    "LOG IN",
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  child: Text("LOG IN", style: TextStyle(fontSize: 16)),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                SizedBox(height: 25),
                 Text(
                   "or log in with?",
-                  style: TextStyle(
-                    color: Color(0xff000000),
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(color: Color(0xff000000), fontSize: 13),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.2,
-                        ),
+                        border: Border.all(color: Colors.black, width: 0.2),
                       ),
                       child: IconButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         iconSize: 23,
                         icon: Icon(Icons.apple),
                       ),
@@ -167,52 +130,39 @@ your account""",
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.2,
-                        ),
+                        border: Border.all(color: Colors.black, width: 0.2),
                       ),
                       child: IconButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         iconSize: 23,
                         icon: Icon(Icons.g_mobiledata),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.2,
-                        ),
+                        border: Border.all(color: Colors.black, width: 0.2),
                       ),
                       child: IconButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         iconSize: 23,
                         icon: Icon(Icons.facebook_sharp),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 6,
-                ),
+                SizedBox(height: 6),
                 Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don’t have an account?",
-                      style: TextStyle(
-                        color: Color(0xff000000),
-                        fontSize: 13,
-                      ),
+                      style: TextStyle(color: Color(0xff000000), fontSize: 13),
                     ),
                     TextButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
@@ -231,15 +181,40 @@ your account""",
       ),
     );
   }
-  DeviceType getDeviceType(MediaQueryData mediaQueryData)
-  {
+
+  Container _buildIntro() {
+    return Container(
+      alignment: Alignment.topLeft,
+      padding: EdgeInsets.symmetric(vertical: 35),
+      child: Text(
+        """Log into
+your account""",
+        style: TextStyle(
+          color: Color(0xff000000),
+          fontSize: 22,
+          fontWeight: FontWeight.w600,
+          height: 2,
+        ),
+      ),
+    );
+  }
+
+  DeviceType getDeviceType(MediaQueryData mediaQueryData) {
     Orientation orientation = mediaQueryData.orientation;
     double width = 0;
-    if (orientation == Orientation.landscape) {width = mediaQueryData.size.height;}
-    else {width = mediaQueryData.size.width;}
-    if (width >= 950) {return DeviceType.desktop;}
-    if (width >= 600) {return DeviceType.tablet;}
+    if (orientation == Orientation.landscape) {
+      width = mediaQueryData.size.height;
+    } else {
+      width = mediaQueryData.size.width;
+    }
+    if (width >= 950) {
+      return DeviceType.desktop;
+    }
+    if (width >= 600) {
+      return DeviceType.tablet;
+    }
     return DeviceType.mobile;
   }
 }
-enum DeviceType { mobile, tablet, desktop}
+
+enum DeviceType { mobile, tablet, desktop }

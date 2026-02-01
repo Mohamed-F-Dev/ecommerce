@@ -31,6 +31,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isdark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
       body: SafeArea(
@@ -52,7 +53,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             Text(
               pages[currentPage].subtitle,
-              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 14,
+                color: isdark ? Colors.white : Colors.grey.shade600,
+              ),
             ),
 
             const SizedBox(height: 30),
@@ -72,7 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black12,
                             blurRadius: 10,
@@ -118,29 +122,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             /// BUTTON
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey.shade700,
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 600),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.shade700,
+
+                    // minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  if (currentPage == pages.length - 1) {
-                    // TODO: Navigate to Home / Login
-                  } else {
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
-                child: Text(
-                  currentPage == pages.length - 1
-                      ? "Get Started"
-                      : "Shopping now",
-                  style: const TextStyle(fontSize: 16),
+                  onPressed: () {
+                    if (currentPage == pages.length - 1) {
+                      // TODO: Navigate to Home / Login
+                    } else {
+                      _pageController.nextPage(
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
+                  child: Text(
+                    currentPage == pages.length - 1
+                        ? "Get Started"
+                        : "Shopping now",
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
             ),
