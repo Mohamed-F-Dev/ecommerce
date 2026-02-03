@@ -1,3 +1,30 @@
+//حط الكود دا فى ال app_them.dar عشان السيمز ال فى صفحتى يشتغل
+// import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
+//
+// class AppTheme {
+//   static final ThemeData light = ThemeData(
+//     brightness: Brightness.light,
+//     textTheme: GoogleFonts.poppinsTextTheme().copyWith(),
+//     colorScheme: const ColorScheme.light(
+//       primary: Color(0xff2D201C),
+//       onPrimary: Color(0xffFFFFFF),
+//     ),
+//   );
+//   static final ThemeData dark = ThemeData(
+//     brightness: Brightness.dark,
+//     textTheme: GoogleFonts.poppinsTextTheme(),
+//     colorScheme: const ColorScheme.dark(
+//       primary: Color(0xffFFFFFF),
+//       onPrimary: Color(0xff2D201C),
+//     ),
+//   );
+// }
+
+
+
+
+
 //مش هعمل ريفكتور دلوقتى عشان لسه مش فاهمه اوى هتابع سامى ثروت الاول عشان مبوظش الدنيا مع شات جى بى تى
 import 'package:flutter/material.dart';
 import 'package:fluttertest/config/theme/theme_controler.dart';
@@ -52,6 +79,10 @@ your account""",
                   width: 310,
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 14,
+                    ),
                     decoration: InputDecoration(
                       labelText: "Email address",
                       labelStyle: TextStyle(
@@ -74,6 +105,10 @@ your account""",
                   width: 310,
                   child: TextFormField(
                     keyboardType: TextInputType.visiblePassword,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 14,
+                    ),
                     obscureText: _isPasswordHidden,
                     decoration: InputDecoration(
                       suffix: IconButton(
