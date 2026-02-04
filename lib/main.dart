@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertest/config/routing/app-routing.dart';
 import 'package:fluttertest/config/theme/theme_controler.dart';
 import 'package:fluttertest/features/auth/ui/screen/login_screen.dart';
+import 'package:fluttertest/features/auth/ui/screen/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,7 @@ class _MyappState extends State<MyApp> {
         builder: (final context, final theme) {
           return MaterialApp(
             theme: theme,
-            home: const LoginScreen(),
+            home: const SignupScreen(),
             onGenerateRoute: AppRouting.onGenerateRoute,
           );
         },
