@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertest/config/theme/app_colors.dart';
+import 'package:fluttertest/core/utils/app_validation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -146,12 +147,26 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.obsecureText = false,
+    this.focusNode,
+    this.textInputType,
+    this.textEditingController,
+    this.onSubmitted,
   });
   final String hintText;
   final bool obsecureText;
+  final FocusNode? focusNode;
+  final TextInputType? textInputType;
+  final TextEditingController? textEditingController;
+  final void Function(String)? onSubmitted;
+
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: AppValidators.validateEmail,
+      onChanged: (value) {},
+      controller: textEditingController,
+      keyboardType: textInputType,
+      focusNode: focusNode,
       cursorColor: Colors.black,
       obscureText: obsecureText,
       decoration: InputDecoration(
