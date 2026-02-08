@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertest/config/routing/app-routing.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -35,125 +36,149 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            const SizedBox(height: 20),
+            Column(
+              children: [
+                const SizedBox(height: 20),
 
-            /// TITLE
-            Text(
-              pages[currentPage].title,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+                /// TITLE
+                Text(
+                  pages[currentPage].title,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
 
-            const SizedBox(height: 8),
+                const SizedBox(height: 8),
 
-            Text(
-              pages[currentPage].subtitle,
-              style: TextStyle(
-                fontSize: 14,
-                color: isdark ? Colors.white : Colors.grey.shade600,
-              ),
-            ),
+                Text(
+                  pages[currentPage].subtitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isdark ? Colors.white : Colors.grey.shade600,
+                  ),
+                ),
 
-            const SizedBox(height: 30),
+                const SizedBox(height: 30),
 
-            /// PAGE VIEW
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: pages.length,
-                onPageChanged: (index) {
-                  setState(() => currentPage = index);
-                },
-                itemBuilder: (context, index) {
-                  return Center(
-                    child: Container(
-                      width: 260,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
+                /// PAGE VIEW
+                Expanded(
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: pages.length,
+                    onPageChanged: (index) {
+                      setState(() => currentPage = index);
+                    },
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: Container(
+                          width: 260,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(24),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
                           ),
-                        ],
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(24),
+                            child: Image.asset(
+                              pages[index].image,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                /// DOTS
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    pages.length,
+                    (index) => AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      width: currentPage == index ? 16 : 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color:
+                            currentPage == index ? Colors.white : Colors.grey,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(24),
-                        child: Image.asset(
-                          pages[index].image,
-                          fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                /// BUTTON
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 600),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey.shade700,
+
+                        // minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
+                      onPressed: () {
+                        if (currentPage == pages.length - 1) {
+                          // TODO: Navigate to Home / Login
+                          Navigator.pushReplacementNamed(
+                            context,
+                            AppRouting.login,
+                          );
+                        } else {
+                          _pageController.nextPage(
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                      child: Text(
+                        currentPage == pages.length - 1
+                            ? "Get Started"
+                            : "Shopping now",
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+              ],
             ),
-
-            const SizedBox(height: 20),
-
-            /// DOTS
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                pages.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: currentPage == index ? 16 : 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: currentPage == index ? Colors.white : Colors.grey,
-                    borderRadius: BorderRadius.circular(10),
+            Positioned(
+              right: 0,
+              top: (MediaQuery.sizeOf(context).height - 260) / 2,
+              child: Container(
+                height: 260,
+                width: 30,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
                   ),
                 ),
               ),
             ),
-
-            const SizedBox(height: 25),
-
-            /// BUTTON
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 600),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey.shade700,
-
-                    // minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (currentPage == pages.length - 1) {
-                      // TODO: Navigate to Home / Login
-                    } else {
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                      );
-                    }
-                  },
-                  child: Text(
-                    currentPage == pages.length - 1
-                        ? "Get Started"
-                        : "Shopping now",
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 30),
           ],
         ),
       ),

@@ -25,7 +25,6 @@ class _MyappState extends State<MyApp> {
         builder: (final context, final theme) {
           return MaterialApp(
             theme: theme,
-            home: const SignupScreen(),
             onGenerateRoute: AppRouting.onGenerateRoute,
           );
         },
