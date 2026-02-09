@@ -1,10 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertest/config/theme/app_colors.dart';
-import 'package:fluttertest/core/utils/app_validation.dart';
+import 'package:fluttertest/config/routing/app-routing.dart';
+import 'package:fluttertest/widgets/custom_button.dart';
+import 'package:fluttertest/widgets/custom_rounded_icon.dart';
+import 'package:fluttertest/widgets/sign_up_form.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final FocusNode nameFocus = FocusNode();
+  final FocusNode emailFocus = FocusNode();
+  final FocusNode passwordFocus = FocusNode();
+  final FocusNode confirmPasswordFocus = FocusNode();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey();
+
+  @override
+  void dispose() {
+    nameFocus.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    confirmPasswordFocus.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +47,8 @@ class SignupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildIntro(),
-              _buildLoginFields(),
-              _buildBottun(),
+              _buildSignUpFields(),
+              _buildButton(),
               _signUpWith(),
             ],
           ),
@@ -26,7 +57,7 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  Column _signUpWith() {
+  Widget _signUpWith() {
     return Column(
       children: [
         Container(
@@ -59,7 +90,9 @@ class SignupScreen extends StatelessWidget {
           children: [
             const Text('Already have an account?'),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, AppRouting.login);
+              },
               child: const Text(
                 'Log In',
                 style: TextStyle(
@@ -74,109 +107,29 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  Column _buildLoginFields() {
-    return const Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 30),
-          child: CustomTextField(hintText: 'Enter your name'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 30),
-          child: CustomTextField(hintText: 'Email address'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 30),
-          child: CustomTextField(hintText: 'Password', obsecureText: true),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 30),
-          child: CustomTextField(
-            hintText: 'Confirm Password',
-            obsecureText: true,
-          ),
-        ),
-      ],
+  Widget _buildSignUpFields() {
+    return SignUpForm(
+      nameFocus: nameFocus,
+      emailFocus: emailFocus,
+      passwordFocus: passwordFocus,
+      confirmPasswordFocus: confirmPasswordFocus,
+      passwordController: passwordController,
+      confirmPasswordcontroller: confirmPasswordController,
+      nameController: nameController,
+      emailController: emailController,
+      formKey: formKey,
     );
   }
 
-  Container _buildBottun() {
-    return Container(alignment: Alignment.center, child: const CustomButton());
-  }
-}
-
-class CustomRoundedIcon extends StatelessWidget {
-  const CustomRoundedIcon({super.key, required this.icon});
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
+  Container _buildButton() {
     return Container(
-      width: 42,
-      height: 42,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: AppColors.scoundry.withValues(alpha: .4)),
-      ),
-      child: IconButton(onPressed: () {}, icon: Icon(icon)),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 41, vertical: 10),
-        decoration: BoxDecoration(
-          color: AppColors.scoundry.withValues(alpha: 1),
-          borderRadius: BorderRadius.circular(26),
-        ),
-        child: const Text('Sign up', style: TextStyle(color: Colors.white)),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.hintText,
-    this.obsecureText = false,
-    this.focusNode,
-    this.textInputType,
-    this.textEditingController,
-    this.onSubmitted,
-  });
-  final String hintText;
-  final bool obsecureText;
-  final FocusNode? focusNode;
-  final TextInputType? textInputType;
-  final TextEditingController? textEditingController;
-  final void Function(String)? onSubmitted;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      validator: AppValidators.validateEmail,
-      onChanged: (value) {},
-      controller: textEditingController,
-      keyboardType: textInputType,
-      focusNode: focusNode,
-      cursorColor: Colors.black,
-      obscureText: obsecureText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.scoundry),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
+      alignment: Alignment.center,
+      child: CustomButton(
+        onTap: () {
+          if (formKey.currentState!.validate()) {
+            Navigator.pushReplacementNamed(context, AppRouting.home);
+          }
+        },
       ),
     );
   }
@@ -186,7 +139,7 @@ Padding _buildIntro() {
   return const Padding(
     padding: EdgeInsets.only(top: 50, bottom: 15),
     child: Text(
-      'Create\nyour acount',
+      'Create\nyour account',
       style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 2),
     ),
   );
