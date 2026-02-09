@@ -3,7 +3,7 @@ import 'package:fluttertest/core/utils/app_validation.dart';
 import 'package:fluttertest/widgets/custom_text_field.dart';
 
 class SignUpForm extends StatelessWidget {
-  SignUpForm({
+  const SignUpForm({
     super.key,
     required this.nameFocus,
     required this.emailFocus,
@@ -62,6 +62,7 @@ class SignUpForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: CustomTextField(
+              isPassword: true,
               controller: passwordController,
               validator: AppValidators.validatePassword,
               hintText: 'Password',
@@ -76,6 +77,7 @@ class SignUpForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: CustomTextField(
+              isPassword: true,
               controller: confirmPasswordcontroller,
               validator: (value) {
                 return AppValidators.validateConfirmPassword(
