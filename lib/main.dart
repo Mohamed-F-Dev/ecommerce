@@ -24,6 +24,7 @@ class _MyappState extends State<MyApp> {
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (final context, final theme) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: theme,
             onGenerateRoute: AppRouting.onGenerateRoute,
           );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertest/features/auth/ui/screen/home_screen.dart';
 import 'package:fluttertest/features/auth/ui/screen/login_screen.dart';
 import 'package:fluttertest/features/auth/ui/screen/signup_screen.dart';
-import 'package:fluttertest/main.dart';
 import 'package:fluttertest/onboarding.dart';
 import 'package:fluttertest/welcome.dart';
 
@@ -28,10 +28,10 @@ class AppRouting {
         );
       case signup:
         return MaterialPageRoute(
-          builder: (final context) => const SignupScreen(),
+          builder: (final context) =>  SignupScreen(),
         );
       case home:
-        return MaterialPageRoute(builder: (final context) => const Home());
+        return MaterialPageRoute(builder: (final context) => const HomeScreen());
       default:
         return MaterialPageRoute(
           builder: (final context) => const Center(child: Text("no routing")),

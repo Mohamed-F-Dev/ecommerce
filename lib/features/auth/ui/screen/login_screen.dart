@@ -21,12 +21,9 @@
 //   );
 // }
 
-
-
-
-
 //مش هعمل ريفكتور دلوقتى عشان لسه مش فاهمه اوى هتابع سامى ثروت الاول عشان مبوظش الدنيا مع شات جى بى تى
 import 'package:flutter/material.dart';
+import 'package:fluttertest/config/routing/app-routing.dart';
 import 'package:fluttertest/config/theme/theme_controler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,6 +32,7 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _MyAppState();
 }
+
 class _MyAppState extends State<LoginScreen> {
   bool _isPasswordHidden = true;
   @override
@@ -55,9 +53,7 @@ class _MyAppState extends State<LoginScreen> {
           ),
           Container(
             alignment: Alignment.topLeft,
-            padding: const EdgeInsets.symmetric(
-              vertical: 60,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 60),
             child: Text(
               """Log into
 your account""",
@@ -97,9 +93,7 @@ your account""",
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 35,
-                ),
+                const SizedBox(height: 35),
                 Container(
                   alignment: Alignment.topLeft,
                   width: 310,
@@ -112,7 +106,7 @@ your account""",
                     obscureText: _isPasswordHidden,
                     decoration: InputDecoration(
                       suffix: IconButton(
-                        onPressed: (){
+                        onPressed: () {
                           setState(() {
                             _isPasswordHidden = !_isPasswordHidden;
                           });
@@ -142,11 +136,9 @@ your account""",
           ),
           Container(
             alignment: Alignment.bottomRight,
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: TextButton(
-              onPressed: (){},
+              onPressed: () {},
               child: Text(
                 "Forgot Password?",
                 style: TextStyle(
@@ -158,32 +150,27 @@ your account""",
               ),
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Center(
-            child:MaterialButton(
+            child: MaterialButton(
               minWidth: 150,
               height: 50,
-              onPressed: (){},
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.5),),
+              onPressed: () {},
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(26.5),
+              ),
               color: Theme.of(context).colorScheme.primary,
               textColor: Theme.of(context).colorScheme.onPrimary,
               // color: const Color(0xff2D201C),
               // textColor: const Color(0xffFFFFFF),
               child: const Text(
                 "LOG IN",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
           ),
-          const SizedBox(
-            height: 25,
-          ),
-           Text(
+          const SizedBox(height: 25),
+          Text(
             "or log in with?",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -193,16 +180,12 @@ your account""",
               fontWeight: FontWeight.w400,
             ),
           ),
-          const SizedBox(
-            height: 25,
-          ),
+          const SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -212,7 +195,7 @@ your account""",
                   ),
                 ),
                 child: IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   iconSize: 23,
                   icon: const Icon(Icons.apple),
                 ),
@@ -227,15 +210,13 @@ your account""",
                   ),
                 ),
                 child: IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   iconSize: 23,
                   icon: const Icon(Icons.g_mobiledata),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -245,20 +226,18 @@ your account""",
                   ),
                 ),
                 child: IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   iconSize: 23,
                   icon: const Icon(Icons.facebook_sharp),
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 100,
-          ),
+          const SizedBox(height: 100),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Text(
+              Text(
                 "Don’t have an account?",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
@@ -268,7 +247,9 @@ your account""",
                 ),
               ),
               TextButton(
-                onPressed: (){},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, AppRouting.signup);
+                },
                 child: Text(
                   "Sign Up",
                   style: TextStyle(
