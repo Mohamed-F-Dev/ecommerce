@@ -6,7 +6,7 @@ import 'package:fluttertest/widgets/sign_up_form.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignupScreen extends StatefulWidget {
-  SignupScreen({super.key});
+  const SignupScreen({super.key});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -43,14 +43,19 @@ class _SignupScreenState extends State<SignupScreen> {
       body: Padding(
         padding: const EdgeInsets.only(left: 18, right: 18),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildIntro(),
-              _buildSignUpFields(),
-              _buildButton(),
-              _signUpWith(),
-            ],
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildIntro(),
+                  _buildSignUpFields(),
+                  _buildButton(),
+                  _signUpWith(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -137,7 +142,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
 Padding _buildIntro() {
   return const Padding(
-    padding: EdgeInsets.only(top: 50, bottom: 15),
+    padding: EdgeInsets.only(top: 40, bottom: 15),
     child: Text(
       'Create\nyour account',
       style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 2),

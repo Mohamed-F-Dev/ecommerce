@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertest/config/theme/app_colors.dart';
 
 class CustomTextField extends StatefulWidget {
-  CustomTextField({
+  const CustomTextField({
     super.key,
     required this.hintText,
     this.obsecureText = false,
